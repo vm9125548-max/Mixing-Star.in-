@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <title>MixingStar.in - AI Store</title>
+    <style>
+        body { background: #000; color: #0f0; font-family: sans-serif; text-align: center; padding: 20px; }
+        .brand { font-size: 32px; font-weight: bold; color: #ffd700; text-shadow: 0 0 10px #ffd700; }
+        .card { border: 2px solid #333; padding: 20px; margin: 15px auto; border-radius: 15px; background: #111; max-width: 450px; }
+        button { background: #0f0; color: #000; padding: 15px; width: 100%; font-weight: bold; border-radius: 10px; cursor: pointer; border: none; margin-top: 10px; }
+        #ai-box { position: fixed; bottom: 20px; right: 20px; width: 260px; background: #1a1a1a; border: 2px solid #0f0; border-radius: 15px; padding: 15px; text-align: left; display: none; }
+    </style>
+</head>
+<body onload="document.getElementById('ai-box').style.display = 'block';">
+    <div class="brand">MixingStar.in</div>
+    <div class="card">
+        <h3>Audio Player</h3>
+        <button onclick="startLocker('song')">PLAY REMIX (2s Tag)</button>
+        <button onclick="startLocker('dialogue')" style="background:#ff4500;">PLAY DIALOGUE (0.5s Tag)</button>
+        <hr style="border:1px solid #333; margin:20px 0;">
+        <button onclick="confirmPayment()" style="background:#fff; color:#000;">CONFIRM PAYMENT</button>
+    </div>
+    <div id="ai-box">
+        <div style="color:#0f0; font-weight:bold;">🤖 MixingStar AI:</div>
+        <div id="ai-msg">नमस्ते! यहाँ ओरिजिनल मिक्सिंग मिलती है।</div>
+    </div>
+    <script>
+        let locker;
+        let tagAudio = new Audio('mixingstar-tag.mp3');
+        let mainAudio = new Audio('mixingstar.in.mp3'); 
+        function startLocker(type) {
+            clearInterval(locker);
+            mainAudio.play().catch(e => alert("Bhai, 'mixingstar.in.mp3' naam se gana upload karein!"));
+            let gap = (type === 'dialogue') ? 500 : 2000; 
+            locker = setInterval(() => {
+                tagAudio.currentTime = 0;
+                tagAudio.play();
+            }, gap);
+        }
+        function confirmPayment() {
+            let voiceMsg = new SpeechSynthesisUtterance("Vaibhav bhai, aapka payment aa chuka hai, aapka gana ja chuka hai");
+            voiceMsg.lang = 'hi-IN';
+            window.speechSynthesis.speak(voiceMsg);
+        }
+    </script>
+</body>
+</html>
